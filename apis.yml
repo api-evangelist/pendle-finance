@@ -1,0 +1,425 @@
+aid: pendle-finance
+url: https://raw.githubusercontent.com/api-evangelist/pendle-finance/refs/heads/main/apis.yml
+name: Pendle Finance
+kind: opensource
+description: >-
+  Pendle Finance is a decentralized yield-trading protocol that tokenizes
+  future yield by stripping yield-bearing assets into Principal Tokens (PT)
+  and Yield Tokens (YT) wrapped in a Standardized Yield (SY) layer. PT trades
+  at a discount and matures one-to-one for the underlying at expiry, giving
+  buyers a fixed yield; YT entitles holders to the variable yield until
+  expiry, letting them long, hedge, or speculate on yield itself. Pendle V2
+  pairs this with a purpose-built AMM for trading time-decaying assets, and
+  Boros extends the design into a margin venue for trading yield as a
+  perpetual rate. The protocol is live on Ethereum, Arbitrum, BNB Chain,
+  Optimism, Base, Mantle, Sonic, Berachain, HyperEVM, Monad, Katana, and Ink.
+  Developer surface includes the Pendle Hosted SDK (a REST API for generating
+  Pendle transactions), a Backend Data API for market, asset, price, and
+  governance data, Socket.IO real-time feeds, the Boros TypeScript SDK and
+  Boros HTTP API, vePENDLE / sPENDLE governance, and audited open-source
+  Solidity contracts for V2 cores, SY wrappers, and Boros core.
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - DeFi
+  - Yield Trading
+  - Yield Stripping
+  - Principal Tokens
+  - Yield Tokens
+  - Standardized Yield
+  - AMM
+  - Fixed Yield
+  - Perpetual Yield
+  - vePENDLE
+  - Boros
+  - EVM
+created: '2026-05-24'
+modified: '2026-05-24'
+specificationVersion: '0.19'
+apis:
+  - aid: pendle-finance:pendle-hosted-sdk
+    name: Pendle Hosted SDK API
+    description: >-
+      A hosted REST API that generates ready-to-broadcast calldata for every
+      Pendle protocol action — swap (including tokens-to-PT, PT-to-tokens,
+      YT swaps), add and remove liquidity, ZPI (zero-price-impact) flows,
+      mint and redeem PT/YT, mint and redeem SY, transfer liquidity, roll
+      over PT positions, and dual-sided liquidity. Most operations go
+      through a single universal Convert endpoint
+      (`POST /v3/sdk/{chainId}/convert`) that accepts tokens in, tokens out,
+      amounts, receiver, slippage, optional aggregator selection (KyberSwap,
+      etc.), and additional analytics flags (impliedApy, effectiveApy). The
+      hosted SDK tracks Pendle UI behaviour exactly and is updated whenever
+      underlying SY assets evolve, so integrators do not have to patch
+      client SDKs to follow protocol changes.
+    humanURL: https://docs.pendle.finance/pendle-dev/Backend/HostedSdk
+    baseURL: https://api-v2.pendle.finance/core
+    tags:
+      - SDK
+      - Hosted API
+      - Transactions
+      - Swap
+      - Liquidity
+      - Mint
+      - Redeem
+    properties:
+      - type: Documentation
+        url: https://docs.pendle.finance/pendle-dev/Backend/HostedSdk
+      - type: APIReference
+        url: https://api-v2.pendle.finance/core/docs
+      - type: Examples
+        url: https://github.com/pendle-finance/pendle-examples-public/tree/main/hosted-sdk-demo
+  - aid: pendle-finance:pendle-backend-data-api
+    name: Pendle Backend Data API
+    description: >-
+      REST API for offchain Pendle data — markets, assets, prices, user
+      positions, transactions, points, and governance. Cross-chain endpoints
+      (`GET /v2/markets/all`, `GET /v1/assets/all`, `GET /v1/prices/assets`)
+      return data spanning every supported chain in one call and are the
+      recommended entry points for new integrations. Chain-scoped endpoints
+      (`/v3/{chainId}/markets/{address}/historical-data`,
+      `/v5/{chainId}/transactions/{address}`) provide deep market history
+      with optional APY breakdown and per-address transaction history. The
+      pricing response includes a partial-success `errors` array so callers
+      can handle non-fatal missing-asset cases without retrying.
+    humanURL: https://docs.pendle.finance/pendle-dev/Backend/ApiOverview
+    baseURL: https://api-v2.pendle.finance/core
+    tags:
+      - Backend API
+      - Markets
+      - Assets
+      - Prices
+      - Governance
+      - Analytics
+    properties:
+      - type: Documentation
+        url: https://docs.pendle.finance/pendle-dev/Backend/ApiOverview
+      - type: APIReference
+        url: https://api-v2.pendle.finance/core/docs
+  - aid: pendle-finance:pendle-realtime-feeds
+    name: Pendle Real-Time Feeds (Socket.IO)
+    description: >-
+      Real-time data feeds delivered over Socket.IO from
+      `https://api-v2.pendle.finance/pendle-v2`. Clients connect once over
+      WebSocket and subscribe to per-feed room ids to receive order-book
+      snapshots and other push updates without polling. The limit-order
+      order-book feed pushes a fresh snapshot every five seconds for every
+      whitelisted market at four precision levels and mirrors the payload
+      shape of the REST endpoint `GET /limit-order/v2/order-book/:chainId`.
+    humanURL: https://docs.pendle.finance/pendle-dev/Backend/SocketIO
+    baseURL: https://api-v2.pendle.finance
+    tags:
+      - Real-Time
+      - WebSocket
+      - Socket.IO
+      - Order Book
+      - Streaming
+    properties:
+      - type: Documentation
+        url: https://docs.pendle.finance/pendle-dev/Backend/SocketIO
+  - aid: pendle-finance:pendle-router-static
+    name: Pendle Router Static (On-chain Helper)
+    description: >-
+      RouterStatic is an on-chain read-only helper contract that exposes
+      simulation and quoting functions used by the Pendle SDK and frontend —
+      previewing swap, mint, redeem, and liquidity outcomes without
+      submitting a transaction. Integrators can call RouterStatic directly
+      from any web3 client to drive custom quoting, analytics, or trade
+      simulation flows.
+    humanURL: https://docs.pendle.finance/pendle-dev/Backend/RouterStatic
+    baseURL: https://docs.pendle.finance/pendle-dev/Backend/RouterStatic
+    tags:
+      - Smart Contracts
+      - Read-Only
+      - Quotes
+      - Simulation
+    properties:
+      - type: Documentation
+        url: https://docs.pendle.finance/pendle-dev/Backend/RouterStatic
+  - aid: pendle-finance:boros-http-api
+    name: Pendle Boros HTTP API
+    description: >-
+      REST API for the Boros margin trading venue — querying markets,
+      account positions, orders, fills, funding, and historical data, and
+      submitting signed orders generated via the Boros SDK. Boros lets
+      traders take leveraged long or short positions on yield rates with a
+      cross-margin or isolated-margin account model and an Agent trading
+      pattern that delegates signing to scoped subaccounts. The HTTP API is
+      the integration backbone for bots, market-makers, and analytics.
+    humanURL: https://docs.pendle.finance/boros-dev/Backend/api
+    baseURL: https://docs.pendle.finance/boros-dev/Backend/api
+    tags:
+      - Boros
+      - Margin
+      - Trading
+      - Yield Perpetuals
+      - HTTP API
+    properties:
+      - type: Documentation
+        url: https://docs.pendle.finance/boros-dev/Backend/api
+      - type: Overview
+        url: https://docs.pendle.finance/boros-dev/Backend/overview
+  - aid: pendle-finance:boros-sdk
+    name: Pendle Boros SDK
+    description: >-
+      Official TypeScript SDK (`@pendle/boros-sdk-public`) that wraps
+      calldata generation, EIP-712 signing, the Agent trading model, and
+      Send-Txs-Bot dispatch on top of the Boros HTTP API. Uses `viem` 2.x
+      as a peer dependency and pairs with `@pendle/boros-offchain-math` for
+      tick/rate conversion. Exposes a high-level `Exchange` client with
+      methods like `placeOrder`, `getAllMarkets`, plus an escape-hatch
+      `getOpenApiSdk()` for direct OpenAPI access.
+    humanURL: https://docs.pendle.finance/boros-dev/Backend/sdk
+    baseURL: https://github.com/pendle-finance/boros-sdk-public
+    tags:
+      - Boros
+      - SDK
+      - TypeScript
+      - Margin
+      - Trading
+    properties:
+      - type: Documentation
+        url: https://docs.pendle.finance/boros-dev/Backend/sdk
+      - type: Repository
+        url: https://github.com/pendle-finance/boros-sdk-public
+      - type: Package
+        url: https://www.npmjs.com/package/@pendle/boros-sdk-public
+      - type: Quickstart
+        url: https://docs.pendle.finance/boros-dev/Backend/bot-quickstart
+      - type: Examples
+        url: https://github.com/pendle-finance/boros-api-examples
+  - aid: pendle-finance:pendle-core-v2-contracts
+    name: Pendle V2 Core Smart Contracts
+    description: >-
+      Open-source Solidity implementation of the Pendle V2 protocol —
+      Router, MarketFactory, Market, PT, YT, vePENDLE, fee distributor,
+      governance, and supporting libraries. Distributed on npm as
+      `@pendle/core-v2`, allowing other Solidity projects to import the
+      interfaces directly. Deployed to Ethereum (chain 1), Optimism (10),
+      BNB Chain (56), Sonic (146), Monad (143), HyperEVM (999), Mantle
+      (5000), Base (8453), Arbitrum (42161), Ink (57073), Berachain
+      (80094), and Katana (747474). Audited by six independent firms with
+      reports kept in the `audits` folder of the public repo.
+    humanURL: https://github.com/pendle-finance/pendle-core-v2-public
+    baseURL: https://github.com/pendle-finance/pendle-core-v2-public
+    tags:
+      - Smart Contracts
+      - Solidity
+      - V2
+      - EVM
+      - Router
+      - vePENDLE
+    properties:
+      - type: Repository
+        url: https://github.com/pendle-finance/pendle-core-v2-public
+      - type: Package
+        url: https://www.npmjs.com/package/@pendle/core-v2
+      - type: Deployments
+        url: https://docs.pendle.finance/pendle-dev/Deployments
+      - type: V2Resources
+        url: https://github.com/pendle-finance/pendle-v2-resources
+  - aid: pendle-finance:pendle-sy-contracts
+    name: Pendle SY (Standardized Yield) Contracts
+    description: >-
+      Public repository of Standardized Yield (SY) wrapper contracts that
+      adapt every supported yield-bearing asset (LSTs, LRTs, stablecoin
+      vaults, RWA tokens, etc.) into a single ERC-20 surface that Pendle V2
+      Markets understand. New asset listings ship as new SY contracts in
+      this repo, paired with deployment scripts in `Pendle-SY-Public` and
+      tests in `pendle-sy-tests`.
+    humanURL: https://github.com/pendle-finance/Pendle-SY-Public
+    baseURL: https://github.com/pendle-finance/Pendle-SY-Public
+    tags:
+      - Smart Contracts
+      - Solidity
+      - SY
+      - ERC-5115
+      - Wrappers
+    properties:
+      - type: Repository
+        url: https://github.com/pendle-finance/Pendle-SY-Public
+      - type: Tests
+        url: https://github.com/pendle-finance/pendle-sy-tests
+      - type: Deployment
+        url: https://github.com/pendle-finance/Pendle-Market-Deployment
+  - aid: pendle-finance:boros-core-contracts
+    name: Pendle Boros Core Smart Contracts
+    description: >-
+      Open-source Solidity core for Boros — the order-book / margin venue
+      that lets traders long or short yield rates with leverage. Contracts
+      cover the exchange, market accounts, agent authorization, settlement,
+      and risk engine. Designed to integrate with the Boros HTTP API and
+      Boros SDK for the off-chain orderbook and signed-order flow.
+    humanURL: https://github.com/pendle-finance/boros-core-public
+    baseURL: https://github.com/pendle-finance/boros-core-public
+    tags:
+      - Smart Contracts
+      - Solidity
+      - Boros
+      - Margin
+      - Orderbook
+    properties:
+      - type: Repository
+        url: https://github.com/pendle-finance/boros-core-public
+common:
+  - type: Website
+    url: https://www.pendle.finance/
+  - type: App
+    url: https://app.pendle.finance
+  - type: Boros
+    url: https://boros.pendle.finance
+  - type: Documentation
+    url: https://docs.pendle.finance
+  - type: DeveloperDocs
+    url: https://docs.pendle.finance/pendle-dev
+  - type: BorosDocs
+    url: https://docs.pendle.finance/boros-dev
+  - type: APIReference
+    url: https://api-v2.pendle.finance/core/docs
+  - type: Markets
+    url: https://app.pendle.finance/trade/markets
+  - type: Governance
+    url: https://app.pendle.finance/vependle
+  - type: GitHubOrganization
+    url: https://github.com/pendle-finance
+  - type: Repository
+    url: https://github.com/pendle-finance/pendle-core-v2-public
+  - type: Blog
+    url: https://medium.com/pendle
+  - type: Twitter
+    url: https://twitter.com/pendle_fi
+  - type: Discord
+    url: https://pendle.finance/discord
+  - type: Telegram
+    url: https://t.me/pendle_info_bot
+  - type: SDK
+    name: Pendle Core V2 npm Package
+    url: https://www.npmjs.com/package/@pendle/core-v2
+  - type: SDK
+    name: Pendle Boros SDK npm Package
+    url: https://www.npmjs.com/package/@pendle/boros-sdk-public
+  - type: Examples
+    url: https://github.com/pendle-finance/pendle-examples-public
+  - name: Pendle Features
+    type: Features
+    data:
+      - name: Yield Stripping (PT and YT)
+        description: >-
+          Splits any yield-bearing asset into a Principal Token redeemable
+          one-to-one at expiry and a Yield Token capturing every unit of
+          yield until expiry, letting users trade the two halves independently.
+      - name: Standardized Yield (SY) Wrappers
+        description: >-
+          ERC-5115 inspired wrappers normalize hundreds of LSTs, LRTs,
+          stablecoin vaults, and RWA tokens into a single token interface
+          that Pendle V2 markets and AMM understand.
+      - name: Fixed Yield Trading
+        description: >-
+          Buying PT at a discount locks in a fixed APY through expiry,
+          regardless of how the underlying floating yield evolves.
+      - name: Leveraged Yield Exposure (YT)
+        description: >-
+          Buying YT gives capital-efficient long exposure to floating yield
+          without holding the principal, used to long, hedge, or speculate
+          on yield rates.
+      - name: Time-Decay AMM
+        description: >-
+          Purpose-built AMM that prices PT and YT against the underlying
+          while accounting for time-to-expiry, supporting deep liquidity
+          for yield trading.
+      - name: vePENDLE Governance and Boosts
+        description: >-
+          Locking PENDLE into vePENDLE grants governance power, voting on
+          gauge weights, fee share, and LP yield boosts across markets.
+      - name: Boros — Yield as a Perpetual
+        description: >-
+          Margin trading venue that turns variable yield rates into
+          perpetual instruments with leverage, cross-margin, isolated
+          margin, and an Agent trading model.
+      - name: Multi-Chain Deployment
+        description: >-
+          Live on Ethereum, Arbitrum, BNB Chain, Optimism, Base, Mantle,
+          Sonic, Berachain, HyperEVM, Monad, Katana, and Ink — markets and
+          PT/YT pairs deployed per chain.
+      - name: Hosted SDK for Drop-In Integration
+        description: >-
+          A single Convert endpoint generates calldata for every protocol
+          action so integrators never have to patch a client SDK as
+          underlying SY assets evolve.
+      - name: Cross-Chain Backend Data
+        description: >-
+          `/v2/markets/all`, `/v1/assets/all`, and `/v1/prices/assets`
+          return data across every supported chain in a single request,
+          with pagination, points data, and partial-success error reporting.
+      - name: Real-Time Order-Book Feeds
+        description: >-
+          Socket.IO order-book streams push snapshots every five seconds
+          for every whitelisted market at four precision levels.
+  - name: Pendle Use Cases
+    type: UseCases
+    data:
+      - name: Fixed-Yield Vault
+        description: >-
+          Wrap PT purchases into a vault product that delivers a fixed APY
+          on stablecoins or ETH-denominated LSTs until expiry.
+      - name: Yield Speculation Desk
+        description: >-
+          Use YT to take leveraged directional positions on a specific
+          asset's yield without holding the principal collateral.
+      - name: Points / Airdrop Maximization
+        description: >-
+          Stack ecosystem points (eigenlayer, ethena, etc.) by holding YT
+          of point-bearing assets, with `/v2/markets/all` exposing per-market
+          points metadata.
+      - name: LP Strategy Optimizer
+        description: >-
+          Auto-rebalance liquidity across Pendle pools using the Hosted SDK
+          Convert API for add/remove/transfer-liquidity and the Backend
+          Data API for APY breakdown.
+      - name: Boros Yield Trading Bot
+        description: >-
+          Quote-driven market-making or directional bot on Boros markets
+          using the Boros SDK, Send-Txs Bot, and Socket.IO order-book feed.
+      - name: DeFi Portfolio Analytics
+        description: >-
+          Build dashboards over Pendle positions using historical APY
+          breakdown, transaction history, and price endpoints.
+      - name: Cross-Chain Yield Aggregation
+        description: >-
+          Aggregate Pendle markets across 12+ EVM chains via the cross-chain
+          REST endpoints for unified yield discovery and routing.
+  - name: Pendle Integrations
+    type: Integrations
+    data:
+      - name: Ethereum
+        description: Mainnet deployment (chain id 1) — flagship Pendle markets and vePENDLE governance.
+      - name: Arbitrum
+        description: Arbitrum One (42161) — heavy LRT and stablecoin yield activity.
+      - name: BNB Chain
+        description: BNB Chain (56) — Pendle markets for BNB-ecosystem yield assets.
+      - name: Optimism
+        description: Optimism (10) — Pendle markets for OP-stack yield assets.
+      - name: Base
+        description: Base (8453) — Coinbase L2 Pendle markets.
+      - name: Mantle
+        description: Mantle (5000) — Pendle markets for Mantle-native yield assets.
+      - name: Sonic
+        description: Sonic (146) — Pendle markets on the Sonic chain.
+      - name: Berachain
+        description: Berachain (80094) — Pendle markets tied to BGT and PoL yield assets.
+      - name: HyperEVM
+        description: HyperEVM (999) — Pendle markets on the Hyperliquid EVM.
+      - name: Monad
+        description: Monad (143) — Pendle markets on the Monad chain.
+      - name: Katana
+        description: Katana (747474) — Pendle markets on the Katana chain.
+      - name: Ink
+        description: Ink (57073) — Pendle markets on the Ink L2.
+      - name: KyberSwap
+        description: Default aggregator integrated by the Hosted SDK Convert endpoint for ZAP-in token routing.
+      - name: viem
+        description: Required peer dependency for the Boros TypeScript SDK.
+      - name: Send Txs Bot
+        description: Boros transaction-dispatch service used by the Boros SDK for signed-order delivery.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
