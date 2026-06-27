@@ -169,7 +169,7 @@ apis:
     url: https://github.com/pendle-finance/boros-sdk-public
   - type: Package
     url: https://www.npmjs.com/package/@pendle/boros-sdk-public
-  - type: Quickstart
+  - type: GettingStarted
     url: https://docs.pendle.finance/boros-dev/Backend/bot-quickstart
   - type: Examples
     url: https://github.com/pendle-finance/boros-api-examples
@@ -272,10 +272,10 @@ common:
   url: https://pendle.finance/discord
 - type: Telegram
   url: https://t.me/pendle_info_bot
-- type: SDK
+- type: SDKs
   name: Pendle Core V2 npm Package
   url: https://www.npmjs.com/package/@pendle/core-v2
-- type: SDK
+- type: SDKs
   name: Pendle Boros SDK npm Package
   url: https://www.npmjs.com/package/@pendle/boros-sdk-public
 - type: Examples
