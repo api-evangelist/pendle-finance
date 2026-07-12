@@ -242,6 +242,10 @@ apis:
   - type: Repository
     url: https://github.com/pendle-finance/boros-core-public
 common:
+- type: VulnerabilityDisclosure
+  url: security/pendle-finance-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/pendle-finance-domain-security.yml
 - type: Website
   url: https://www.pendle.finance/
 - type: App
