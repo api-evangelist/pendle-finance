@@ -16,7 +16,18 @@ description: Pendle Finance is a decentralized yield-trading protocol that token
   Socket.IO real-time feeds, the Boros TypeScript SDK and Boros HTTP API, vePENDLE
   / sPENDLE governance, and audited open-source Solidity contracts for V2 cores, SY
   wrappers, and Boros core.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: unknown
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Unknown
+  confidence: low
+  source: []
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/pendle-finance.png
 tags:
 - DeFi
 - Yield Trading
