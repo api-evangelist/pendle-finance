@@ -43,7 +43,7 @@ tags:
 - EVM
 created: '2026-05-24'
 modified: '2026-05-24'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 apis:
 - aid: pendle-finance:pendle-hosted-sdk
   name: Pendle Hosted SDK API
