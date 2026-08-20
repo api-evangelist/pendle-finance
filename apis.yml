@@ -38,6 +38,19 @@ tags:
 - AMM
 - Fixed Yield
 - Perpetual Yield
+- Ve Pendle
+- Boros
+- EVM
+tags_raw:
+- DeFi
+- Yield Trading
+- Yield Stripping
+- Principal Tokens
+- Yield Tokens
+- Standardized Yield
+- AMM
+- Fixed Yield
+- Perpetual Yield
 - vePENDLE
 - Boros
 - EVM
@@ -60,6 +73,14 @@ apis:
   humanURL: https://docs.pendle.finance/pendle-dev/Backend/HostedSdk
   baseURL: https://api-v2.pendle.finance/core
   tags:
+  - SDK
+  - Hosted API
+  - Transaction
+  - Swap
+  - Liquidity
+  - Mint
+  - Redeem
+  tags_raw:
   - SDK
   - Hosted API
   - Transactions
@@ -129,6 +150,11 @@ apis:
   humanURL: https://docs.pendle.finance/pendle-dev/Backend/RouterStatic
   baseURL: https://docs.pendle.finance/pendle-dev/Backend/RouterStatic
   tags:
+  - Smart Contracts
+  - Read Only
+  - Quotes
+  - Simulation
+  tags_raw:
   - Smart Contracts
   - Read-Only
   - Quotes
@@ -202,6 +228,13 @@ apis:
   - V2
   - EVM
   - Router
+  - Ve Pendle
+  tags_raw:
+  - Smart Contracts
+  - Solidity
+  - V2
+  - EVM
+  - Router
   - vePENDLE
   properties:
   - type: Repository
@@ -244,6 +277,12 @@ apis:
   humanURL: https://github.com/pendle-finance/boros-core-public
   baseURL: https://github.com/pendle-finance/boros-core-public
   tags:
+  - Smart Contracts
+  - Solidity
+  - Boros
+  - Margin
+  - Order Book
+  tags_raw:
   - Smart Contracts
   - Solidity
   - Boros
