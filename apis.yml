@@ -16,6 +16,18 @@ description: Pendle Finance is a decentralized yield-trading protocol that token
   Socket.IO real-time feeds, the Boros TypeScript SDK and Boros HTTP API, vePENDLE
   / sPENDLE governance, and audited open-source Solidity contracts for V2 cores, SY
   wrappers, and Boros core.
+deliveryModel:
+  model: self-hosted
+  license: MIT
+  open_source: true
+  commercial: false
+  callable_host: false
+  label: Self-hosted open source · you run it yourself
+  confidence: high
+  source:
+  - license
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: unknown
@@ -292,6 +304,8 @@ apis:
   - type: Repository
     url: https://github.com/pendle-finance/boros-core-public
 common:
+- type: IssueTracker
+  url: https://github.com/pendle-finance/boros-sdk-public/issues
 - type: License
   name: MIT
   url: https://github.com/pendle-finance/boros-sdk-public/blob/main/LICENSE
