@@ -50,7 +50,7 @@ tags:
 - AMM
 - Fixed Yield
 - Perpetual Yield
-- vePENDLE
+- Ve Pendle
 - Boros
 - EVM
 tags_raw:
@@ -163,7 +163,7 @@ apis:
   baseURL: https://docs.pendle.finance/pendle-dev/Backend/RouterStatic
   tags:
   - Smart Contracts
-  - Read-Only
+  - Read Only
   - Quotes
   - Simulation
   tags_raw:
@@ -237,10 +237,10 @@ apis:
   tags:
   - Smart Contracts
   - Solidity
-  - V2
+  - v2
   - EVM
   - Router
-  - vePENDLE
+  - Ve Pendle
   tags_raw:
   - Smart Contracts
   - Solidity
@@ -293,7 +293,7 @@ apis:
   - Solidity
   - Boros
   - Margin
-  - Orderbook
+  - Order Book
   tags_raw:
   - Smart Contracts
   - Solidity
