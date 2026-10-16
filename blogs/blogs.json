@@ -2,11 +2,11 @@
   "repo": "pendle-finance",
   "feeds": [
     {
-      "source": "https://github.com/pendle-finance/pendle-core-v2-public",
-      "feed_url": "https://github.com/pendle-finance/pendle-core-v2-public",
+      "source": "https://medium.com/pendle",
+      "feed_url": "https://medium.com/feed/pendle",
       "title": "",
       "saved": 0,
-      "method": "none"
+      "method": "discovered"
     },
     {
       "source": "https://medium.com/feed/pendle",
@@ -14,10 +14,14 @@
       "title": "",
       "saved": 0,
       "method": "feed"
+    },
+    {
+      "source": "https://github.com/pendle-finance/pendle-core-v2-public",
+      "error": "HTTPError"
     }
   ],
-  "post_count": 11,
-  "fetched": "2026-10-03T12:30:02Z",
+  "post_count": 12,
+  "fetched": "2026-10-10T13:15:00Z",
   "feed_nature": "undetermined",
   "feed_nature_basis": null,
   "feed_nature_note": "Whether these posts are the vendor publishing or its support community, decided on the URL path grammar of the saved posts -- not the hostname, which carries both on Khoros, and not author diversity, which flags large vendor blogs as forums. 'undetermined' means undetermined."
